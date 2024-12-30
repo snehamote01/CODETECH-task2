@@ -1,0 +1,73 @@
+def add_grade(grades):
+    """Add or update a grade for a subject."""
+    subject = input("Enter subject name: ")
+    try:
+        grade = float(input(f"Enter grade for {subject} (0-100): "))
+        if 0 <= grade <= 100:
+            grades[subject] = grade
+            print(f"Grade for {subject} updated to {grade:.2f}.")
+        else:
+            print("Grade must be between 0 and 100.")
+    except ValueError:
+        print("Invalid input! Please enter a numeric value.")
+
+
+def calculate_average(grades):
+    """Calculate the average grade."""
+    if not grades:
+        print("No grades available to calculate the average.")
+        return 0
+    return sum(grades.values()) / len(grades)
+
+
+def display_grades(grades):
+    """Display all grades, average, and letter grade."""
+    if not grades:
+        print("No grades recorded yet.")
+        return
+    print("\nGrades Summary:")
+    for subject, grade in grades.items():
+        print(f"{subject}: {grade:.2f}")
+
+    average = calculate_average(grades)
+    print(f"\nAverage Grade: {average:.2f}")
+    print(f"Letter Grade: {get_letter_grade(average)}")
+
+
+def get_letter_grade(average):
+    """Convert average grade to a letter grade."""
+    if average >= 90:
+        return "A"
+    elif average >= 80:
+        return "B"
+    elif average >= 70:
+        return "C"
+    elif average >= 60:
+        return "D"
+    else:
+        return "F"
+
+
+def main():
+    """Main function to handle the program flow."""
+    grades = {}
+
+    while True:
+        print("\n1. Add/Update Grade")
+        print("2. Display Grades")
+        print("3. Exit")
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            add_grade(grades)
+        elif choice == "2":
+            display_grades(grades)
+        elif choice == "3":
+            print("Exiting program. Goodbye!")
+            break
+        else:
+            print("Invalid choice! Please try again.")
+
+
+if _name_ == "_main_":
+    main()
